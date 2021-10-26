@@ -80,6 +80,7 @@ final class AuthManager {
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: data)
                 self?.cacheToken(result: result)
+                print("Result Token: ", result)
                 completion(true)
             } catch {
                 print(error.localizedDescription)
@@ -92,6 +93,7 @@ final class AuthManager {
     
     private var onRefreshBlocks = [((String) -> Void)]()
     
+    // Supplies valid token to be used with API Calls
     public func withValidToken(completion: @escaping (String) -> Void) {
         guard !refreshingToken else {
             onRefreshBlocks.append(completion)
@@ -105,7 +107,7 @@ final class AuthManager {
                 }
             }
         } else if let token = self.accessToken {
-            // Return actuel token
+            // Return actual token
             completion(token)
         }
     }
@@ -120,6 +122,8 @@ final class AuthManager {
         
         guard let refreshToken = self.refreshToken else { return }
         
+        
+        // Refresh Token
         guard let url = URL(string: Constants.tokenAPIURL) else { return }
         
         self.refreshingToken = true
@@ -154,7 +158,7 @@ final class AuthManager {
             
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: data)
-                self?.onRefreshBlocks.forEach({ $0(result.access_token) })
+                self?.onRefreshBlocks.forEach { $0(result.access_token) }
                 self?.onRefreshBlocks.removeAll()
                 self?.cacheToken(result: result)
                 completion(true)
