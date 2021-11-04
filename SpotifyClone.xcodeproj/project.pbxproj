@@ -27,6 +27,7 @@
 		6240D775271F3FF900944651 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6240D774271F3FF900944651 /* UserProfile.swift */; };
 		6240D777271F565000944651 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6240D776271F565000944651 /* Extensions.swift */; };
 		62445F1E2728722C008BB1D7 /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62445F1D2728722C008BB1D7 /* SettingsModels.swift */; };
+		625275B2273408CD008F578E /* RecommendedGenresResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625275B1273408CD008F578E /* RecommendedGenresResponse.swift */; };
 		62613CA7271F382E00D5F946 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62613CA6271F382E00D5F946 /* AppDelegate.swift */; };
 		62613CA9271F382E00D5F946 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62613CA8271F382E00D5F946 /* SceneDelegate.swift */; };
 		62613CAB271F382E00D5F946 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62613CAA271F382E00D5F946 /* HomeViewController.swift */; };
@@ -60,6 +61,7 @@
 		6240D774271F3FF900944651 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		6240D776271F565000944651 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		62445F1D2728722C008BB1D7 /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
+		625275B1273408CD008F578E /* RecommendedGenresResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedGenresResponse.swift; sourceTree = "<group>"; };
 		62613CA3271F382E00D5F946 /* SpotifyClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62613CA6271F382E00D5F946 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62613CA8271F382E00D5F946 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				628D216627297E2F00B6BBF8 /* NewReleasesResponse.swift */,
 				628D21682729860400B6BBF8 /* APIImage.swift */,
 				62F2D245272AE6C200DE3C0E /* FeaturedPlaylistsResponse.swift */,
+				625275B1273408CD008F578E /* RecommendedGenresResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				6240D76B271F3E9400944651 /* APICaller.swift in Sources */,
 				62F2D246272AE6C200DE3C0E /* FeaturedPlaylistsResponse.swift in Sources */,
 				6240D75F271F3DBA00944651 /* SettingsViewController.swift in Sources */,
+				625275B2273408CD008F578E /* RecommendedGenresResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
