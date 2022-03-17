@@ -71,7 +71,7 @@ final class APICaller {
                 
                 do {
                     let result = try JSONDecoder().decode(FeaturedPlaylistsResponse.self, from: data)
-                    print(result)
+//                    print(result)
                     completion(.success(result))
                 } catch {
                     completion(.failure(error))
@@ -94,10 +94,10 @@ final class APICaller {
                 }
 
                 do {
-                    let r = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+//                    let r = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
                     let result = try JSONDecoder().decode(RecommendationsResponse.self, from: data)
-                    print("@@ result getRecommendations JSON ", r)
-                    print("@@ result getRecommendations ", result)
+//                    print("@@ result getRecommendations JSON ", r)
+//                    print("@@ result getRecommendations ", result)
                     completion(.success(result))
                 } catch {
                     completion(.failure(error))
@@ -120,7 +120,7 @@ final class APICaller {
                 
                 do {
                     let result = try JSONDecoder().decode(RecommendedGenresResponse.self, from: data)
-                    print("@@ getRecomendationsGenres ", result)
+//                    print("@@ getRecomendationsGenres ", result)
                     completion(.success(result))
                 } catch {
                     completion(.failure(error))
