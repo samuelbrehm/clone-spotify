@@ -8,9 +8,9 @@
 import UIKit
 
 enum BrowseSectionType {
-    case newReleases(viewModels: [NewReleasesCellViewModel]) //1
-    case featuredPlaylists(viewModels: [NewReleasesCellViewModel])
-    case recommendedTracks(viewModels: [NewReleasesCellViewModel])
+    case newReleases(viewModels: [NewReleasesCellViewModel])
+    case featuredPlaylists(viewModels: [FeaturedPlaylistCellViewModel])
+    case recommendedTracks(viewModels: [RecommendedTrackCellViewModel])
 }
 
 class HomeViewController: UIViewController {
@@ -279,8 +279,18 @@ class HomeViewController: UIViewController {
                                             numberOfTracks: $0.total_tracks,
                                             artistName: $0.artists.first?.name ?? "-")
         })))
-        sections.append(.featuredPlaylists(viewModels: []))
-        sections.append(.recommendedTracks(viewModels: []))
+        sections.append(.featuredPlaylists(viewModels: playlists.compactMap({
+            return FeaturedPlaylistCellViewModel(
+                name: $0.name,
+                artworkURL: URL(string: $0.images.first?.url ?? ""),
+                creatorName: $0.owner.display_name)
+        })))
+        sections.append(.recommendedTracks(viewModels: tracks.compactMap({
+            return RecommendedTrackCellViewModel(
+                name: $0.name,
+                artistName: $0.artists.first?.name ?? "-",
+                artworkURL: URL(string: $0.album.images.first?.url ?? ""))
+        })))
         collectionView.reloadData()
     }
     
@@ -313,36 +323,35 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let type = sections[indexPath.section]
         switch type {
         case .newReleases(let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReleasesCollectionViewCell.identifier,
-                                                                for: indexPath) as? NewReleasesCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: NewReleasesCollectionViewCell.identifier,
+                for: indexPath
+            ) as? NewReleasesCollectionViewCell
             else { return UICollectionViewCell() }
             let viewModel = viewModels[indexPath.row]
             
             cell.configure(with: viewModel)
             return cell
+            
         case .featuredPlaylists(let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier,
-                                                                for: indexPath) as? FeaturedPlaylistCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier,
+                for: indexPath
+            ) as? FeaturedPlaylistCollectionViewCell
             else { return UICollectionViewCell() }
             
+            cell.configure(with: viewModels[indexPath.row])
             return cell
+            
         case .recommendedTracks(let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendedTrackCollectionViewCell.identifier,
-                                                                for: indexPath) as? RecommendedTrackCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: RecommendedTrackCollectionViewCell.identifier,
+                for: indexPath
+            ) as? RecommendedTrackCollectionViewCell
             else { return UICollectionViewCell() }
             
+            cell.configure(with: viewModels[indexPath.row])
             return cell
         }
-        
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        if indexPath.section == 0 {
-            cell.backgroundColor = .systemGreen
-        } else if indexPath.section == 1 {
-            cell.backgroundColor = .systemPink
-        } else if indexPath.section == 2 {
-            cell.backgroundColor = .systemBlue
-        }
-        return cell
     }
 }
