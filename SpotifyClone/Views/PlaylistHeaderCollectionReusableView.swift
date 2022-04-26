@@ -8,8 +8,14 @@
 import UIKit
 import SDWebImage
 
+protocol PlaylistHeaderCollectionReusableViewDelegate: AnyObject {
+   func playlistHeaderCollectionReusableViewDidTapPlayAll(_ header: PlaylistHeaderCollectionReusableView)
+}
+
 final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
    static let identifier: String = "PlaylistHeaderCollectionReusableView"
+   
+   weak var delegate: PlaylistHeaderCollectionReusableViewDelegate?
    
    private let nameLabel: UILabel = {
       let label = UILabel()
@@ -39,6 +45,17 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
       return imageView
    }()
    
+   private let playAllButton: UIButton = {
+      let button = UIButton()
+      button.backgroundColor = .systemGreen
+      let image = UIImage(systemName: "play.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular))
+      button.setImage(image, for: .normal)
+      button.tintColor = .white
+      button.layer.cornerRadius = 30
+      button.layer.masksToBounds = true
+      return button
+   }()
+   
    // MARK: - Init
    
    override init(frame: CGRect) {
@@ -48,10 +65,16 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
       addSubview(nameLabel)
       addSubview(descriptionLabel)
       addSubview(ownerLabel)
+      addSubview(playAllButton)
+      playAllButton.addTarget(self, action: #selector(didTapPlayAll), for: .touchUpInside)
    }
    
    required init?(coder: NSCoder) {
       fatalError()
+   }
+   
+   @objc private func didTapPlayAll() {
+      delegate?.playlistHeaderCollectionReusableViewDidTapPlayAll(self)
    }
    
    override func layoutSubviews() {
@@ -63,13 +86,14 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
       descriptionLabel.frame = CGRect(x: 10, y: nameLabel.bottom, width: width-20, height: 44)
       ownerLabel.frame = CGRect(x: 10, y: descriptionLabel.bottom, width: width-20, height: 44)
       
+      playAllButton.frame = CGRect(x: width-80, y: height-80, width: 60, height: 60)
    }
    
    func configure(with viewModel: PlaylistHeaderViewViewModel) {
       nameLabel.text = viewModel.name
       ownerLabel.text = viewModel.ownerName
       descriptionLabel.text = viewModel.description
-      imageView.sd_setImage(with: viewModel.artworkURL, completed: nil)
+      imageView.sd_setImage(with: viewModel.artworkURL, placeholderImage: UIImage(systemName: "photo"), completed: nil)
    }
         
 }
